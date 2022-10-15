@@ -13,3 +13,5 @@ npm install
 
 echo "Run new PM2 action"
 pm2 start npm --name "bikun-tracker-backend" -- start
+
+echo "APP IS UP AND RUNNING"
