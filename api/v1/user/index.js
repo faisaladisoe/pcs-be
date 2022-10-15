@@ -1,8 +1,7 @@
-'use strict';
-
 const express = require('express');
-const controller = require('./controller');
 const bodyParser = require('body-parser');
+const controller = require('./controller');
+
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
