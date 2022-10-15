@@ -28,17 +28,9 @@ jobs:
 
     steps:
       - name: executing remote ssh commands using ssh key
-        uses: burnett01/rsync-deployments@5.1
+        uses: appleboy/ssh-action@master
         with:
-          switches: -avzr --delete
-          path: ./*
-          remote_path: /pcs-be/
-          remote_host: ec2-54-251-180-24.ap-southeast-1.compute.amazonaws.com
-          remote_user: ubuntu
-          remote_key: "-----BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtz
-c2gtZWQyNTUxOQAAACBZPk/XkEAFU21I2MN3FdtayDNDU2ugcwFPjlJptAoX+QAA
-AIiu3lExrt5RMQAAAAtzc2gtZWQyNTUxOQAAACBZPk/XkEAFU21I2MN3FdtayDND
-U2ugcwFPjlJptAoX+QAAAEAwUQIBATAFBgMrZXAEIgQgJ9EXqrQaBdtG3s0q9Ox8
-31k+T9eQQAVTbUjYw3cV21rIM0NTa6BzAU+OUmm0Chf5AAAAAAECAwQF
------END OPENSSH PRIVATE KEY-----"
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USER }}
+          key: ${{ secrets.AWS_KEY }}
+          script: sh deploy.sh
