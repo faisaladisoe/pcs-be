@@ -45,6 +45,6 @@ jobs:
           switches: -avzr --delete
           path: ./*
           remote_path: /pcs-be/
-          remote_host: ${ secrets.AWS_HOST}
+          remote_host: ${{ secrets.AWS_HOST }}
           remote_user: ubuntu
           remote_key: "${{ secrets.AWS_KEY }}"
