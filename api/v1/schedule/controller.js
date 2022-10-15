@@ -41,7 +41,11 @@ exports.getAllBusSchedule = async (req, res) => {
       }]
     }
 
-    return busSchedules;
+    const result = JSON.stringify(busSchedules)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -73,7 +77,11 @@ exports.getRedBusSchedule = async (req, res) => {
       }]
     }
 
-    return redBusSchedules;
+    const result = JSON.stringify(redBusSchedules)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -105,7 +113,11 @@ exports.getBlueBusSchedule = async (req, res) => {
       }]
     }
 
-    return blueBusSchedule;
+    const result = JSON.stringify(blueBusSchedule)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -116,7 +128,7 @@ exports.getBlueBusSchedule = async (req, res) => {
 exports.createRedBusSchedule = async (req, res) => {
   try {
     const redBusSchedule = []
-    newRedBus = {
+    const newRedBus = {
       'license-plate-number': 'D 1011 JOK',
       'capacity': 'crowded',
       'current-position': 'FT',
@@ -124,7 +136,12 @@ exports.createRedBusSchedule = async (req, res) => {
       'line': 'red'
     }
     redBusSchedule.push(newRedBus);
-    return newRedBus;
+
+    const result = JSON.stringify(newRedBus)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -135,7 +152,7 @@ exports.createRedBusSchedule = async (req, res) => {
 exports.createBlueBusSchedule = async (req, res) => {
   try {
     const blueBusSchedule = []
-    newBlueBus = {
+    const newBlueBus = {
       'license-plate-number': 'D 1011 JOK',
       'capacity': 'crowded',
       'current-position': 'FT',
@@ -143,7 +160,12 @@ exports.createBlueBusSchedule = async (req, res) => {
       'line': 'blue'
     }
     blueBusSchedule.push(newBlueBus);
-    return newBlueBus;
+
+    const result = JSON.stringify(newBlueBus)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -155,7 +177,7 @@ exports.updateRedBusSchedule = async (req, res) => {
   try {
     const { licensePlate } = req.params;
     const redBusSchedule = []
-    newRedBus = {
+    const newRedBus = {
       'license-plate-number': 'D 1011 JOK',
       'capacity': 'crowded',
       'current-position': 'FT',
@@ -163,7 +185,12 @@ exports.updateRedBusSchedule = async (req, res) => {
       'line': 'red'
     }
     redBusSchedule.push(newRedBus);
-    return newRedBus;
+
+    const result = JSON.stringify(newRedBus)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -175,7 +202,7 @@ exports.updateBlueBusSchedule = async (req, res) => {
   try {
     const { licensePlate } = req.params;
     const blueBusSchedule = []
-    newBlueBus = {
+    const newBlueBus = {
       'license-plate-number': 'D 1011 JOK',
       'capacity': 'crowded',
       'current-position': 'FT',
@@ -183,7 +210,12 @@ exports.updateBlueBusSchedule = async (req, res) => {
       'line': 'blue'
     }
     blueBusSchedule.push(newBlueBus);
-    return newBlueBus;
+
+    const result = JSON.stringify(newBlueBus)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -216,7 +248,12 @@ exports.deleteRedBusSchedule = async (req, res) => {
       }]
     }
     redBusSchedules.pop();
-    return redBusSchedules;
+
+    const result = JSON.stringify(redBusSchedules)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -249,7 +286,12 @@ exports.deleteBlueBusSchedule = async (req, res) => {
       }]
     }
     blueBusSchedule.pop();
-    return blueBusSchedule;
+
+    const result = JSON.stringify(blueBusSchedule)
+    res.set('Access-Control-Expose-Headers', 'x-access-token');
+    res.set('x-access-token', req.newToken);
+    res.send(result);
+    return result;
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
