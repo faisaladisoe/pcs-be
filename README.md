@@ -1,5 +1,10 @@
 # pcs-be
 
+## Personal ComputerS Group
+Members:
+- Dewangga Putra Sheradhien
+- Hakim Amarullah
+- Muhammad Faisal Adi Soesatyo
 
 
 ## Getting started
