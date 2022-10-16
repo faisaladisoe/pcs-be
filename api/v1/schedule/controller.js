@@ -1,51 +1,8 @@
+const helper = require('./helper');
+
 exports.getAllBusSchedule = async (req, res) => {
   try {
-    const busSchedules = {
-      'red-line': [{
-        'license-plate-number': 'D 1100 SHE',
-        'capacity': 'crowded',
-        'current-position': 'FKM',
-        'ETA': '5 mins',
-        'line': 'red'
-      }, {
-        'license-plate-number': 'D 1110 HAK',
-        'capacity': 'crowded',
-        'current-position': 'FH',
-        'ETA': '5 mins',
-        'line': 'red'
-      }, {
-        'license-plate-number': 'D 1100 AMA',
-        'capacity': 'crowded',
-        'current-position': 'Stasiun UI',
-        'ETA': '5 mins',
-        'line': 'red'
-      }],
-      'blue-line': [{
-        'license-plate-number': 'D 1101 LIM',
-        'capacity': 'crowded',
-        'current-position': 'Stasiun UI',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }, {
-        'license-plate-number': 'D 1111 SEL',
-        'capacity': 'crowded',
-        'current-position': 'FPsi',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }, {
-        'license-plate-number': 'D 1011 JOK',
-        'capacity': 'crowded',
-        'current-position': 'FT',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }]
-    }
-
-    const result = JSON.stringify(busSchedules)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
+    return await helper.findByFilter(res, 'schedule', {});
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -55,33 +12,7 @@ exports.getAllBusSchedule = async (req, res) => {
 
 exports.getRedBusSchedule = async (req, res) => {
   try {
-    const redBusSchedules = {
-      'red-line': [{
-        'license-plate-number': 'D 1100 SHE',
-        'capacity': 'crowded',
-        'current-position': 'FKM',
-        'ETA': '5 mins',
-        'line': 'red'
-      }, {
-        'license-plate-number': 'D 1110 HAK',
-        'capacity': 'crowded',
-        'current-position': 'FH',
-        'ETA': '5 mins',
-        'line': 'red'
-      }, {
-        'license-plate-number': 'D 1100 AMA',
-        'capacity': 'crowded',
-        'current-position': 'Stasiun UI',
-        'ETA': '5 mins',
-        'line': 'red'
-      }]
-    }
-
-    const result = JSON.stringify(redBusSchedules)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
+    return await helper.findByFilter(res, 'schedule', { line: 'red' });
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -91,33 +22,7 @@ exports.getRedBusSchedule = async (req, res) => {
 
 exports.getBlueBusSchedule = async (req, res) => {
   try {
-    const blueBusSchedule = {
-      'blue-line': [{
-        'license-plate-number': 'D 1101 LIM',
-        'capacity': 'crowded',
-        'current-position': 'Stasiun UI',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }, {
-        'license-plate-number': 'D 1111 SEL',
-        'capacity': 'crowded',
-        'current-position': 'FPsi',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }, {
-        'license-plate-number': 'D 1011 JOK',
-        'capacity': 'crowded',
-        'current-position': 'FT',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }]
-    }
-
-    const result = JSON.stringify(blueBusSchedule)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
+    return await helper.findByFilter(res, 'schedule', { line: 'blue' });
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -125,23 +30,13 @@ exports.getBlueBusSchedule = async (req, res) => {
   }
 }
 
-exports.createRedBusSchedule = async (req, res) => {
+exports.createBusSchedule = async (req, res) => {
   try {
-    const redBusSchedule = []
-    const newRedBus = {
-      'license-plate-number': 'D 1011 JOK',
-      'capacity': 'crowded',
-      'current-position': 'FT',
-      'ETA': '5 mins',
-      'line': 'red'
-    }
-    redBusSchedule.push(newRedBus);
+    const newRedBusSchedule = req.body;
+    newRedBusSchedule.createdAt = Date.now();
+    newRedBusSchedule.updatedAt = Date.now();
 
-    const result = JSON.stringify(newRedBus)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
+    return await helper.createItem(res, 'schedule', newRedBusSchedule);
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -149,23 +44,16 @@ exports.createRedBusSchedule = async (req, res) => {
   }
 }
 
-exports.createBlueBusSchedule = async (req, res) => {
+exports.updateBusSchedule = async (req, res) => {
   try {
-    const blueBusSchedule = []
-    const newBlueBus = {
-      'license-plate-number': 'D 1011 JOK',
-      'capacity': 'crowded',
-      'current-position': 'FT',
-      'ETA': '5 mins',
-      'line': 'blue'
-    }
-    blueBusSchedule.push(newBlueBus);
+    const { id } = req.params;
+    const updatedItem = req.body;
+    const previousItem = await helper.findItemById('schedule', id);
 
-    const result = JSON.stringify(newBlueBus)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
+    updatedItem.createdAt = previousItem.createdAt;
+    updatedItem.updatedAt = Date.now();
+    
+    return await helper.updateItem(res, 'schedule', previousItem, updatedItem);
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
@@ -173,125 +61,10 @@ exports.createBlueBusSchedule = async (req, res) => {
   }
 }
 
-exports.updateRedBusSchedule = async (req, res) => {
+exports.deleteBusSchedule = async (req, res) => {
   try {
-    const { licensePlate } = req.params;
-    const redBusSchedule = []
-    const newRedBus = {
-      'license-plate-number': 'D 1011 JOK',
-      'capacity': 'crowded',
-      'current-position': 'FT',
-      'ETA': '5 mins',
-      'line': 'red'
-    }
-    redBusSchedule.push(newRedBus);
-
-    const result = JSON.stringify(newRedBus)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
-  } catch (err) {
-    console.log(err);
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.status(err.statusCode).send(err.message);
-  }
-}
-
-exports.updateBlueBusSchedule = async (req, res) => {
-  try {
-    const { licensePlate } = req.params;
-    const blueBusSchedule = []
-    const newBlueBus = {
-      'license-plate-number': 'D 1011 JOK',
-      'capacity': 'crowded',
-      'current-position': 'FT',
-      'ETA': '5 mins',
-      'line': 'blue'
-    }
-    blueBusSchedule.push(newBlueBus);
-
-    const result = JSON.stringify(newBlueBus)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
-  } catch (err) {
-    console.log(err);
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.status(err.statusCode).send(err.message);
-  }
-}
-
-exports.deleteRedBusSchedule = async (req, res) => {
-  try {
-    const { licensePlate } = req.params;
-    const redBusSchedules = {
-      'red-line': [{
-        'license-plate-number': 'D 1100 SHE',
-        'capacity': 'crowded',
-        'current-position': 'FKM',
-        'ETA': '5 mins',
-        'line': 'red'
-      }, {
-        'license-plate-number': 'D 1110 HAK',
-        'capacity': 'crowded',
-        'current-position': 'FH',
-        'ETA': '5 mins',
-        'line': 'red'
-      }, {
-        'license-plate-number': 'D 1100 AMA',
-        'capacity': 'crowded',
-        'current-position': 'Stasiun UI',
-        'ETA': '5 mins',
-        'line': 'red'
-      }]
-    }
-    redBusSchedules.pop();
-
-    const result = JSON.stringify(redBusSchedules)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
-  } catch (err) {
-    console.log(err);
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.status(err.statusCode).send(err.message);
-  }
-}
-
-exports.deleteBlueBusSchedule = async (req, res) => {
-  try {
-    const { licensePlate } = req.params;
-    const blueBusSchedule = {
-      'blue-line': [{
-        'license-plate-number': 'D 1101 LIM',
-        'capacity': 'crowded',
-        'current-position': 'Stasiun UI',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }, {
-        'license-plate-number': 'D 1111 SEL',
-        'capacity': 'crowded',
-        'current-position': 'FPsi',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }, {
-        'license-plate-number': 'D 1011 JOK',
-        'capacity': 'crowded',
-        'current-position': 'FT',
-        'ETA': '5 mins',
-        'line': 'blue'
-      }]
-    }
-    blueBusSchedule.pop();
-
-    const result = JSON.stringify(blueBusSchedule)
-    res.set('Access-Control-Expose-Headers', 'x-access-token');
-    res.set('x-access-token', req.newToken);
-    res.send(result);
-    return result;
+    const { id } = req.params;
+    return await helper.deleteItem(res, 'schedule', id);
   } catch (err) {
     console.log(err);
     res.set('Access-Control-Expose-Headers', 'x-access-token');
